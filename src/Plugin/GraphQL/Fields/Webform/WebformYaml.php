@@ -29,6 +29,8 @@ class WebformYaml extends FieldPluginBase {
     $definition = \Drupal::service('entity_type.manager')->getDefinition('webform');
     $config_name = $definition->getConfigPrefix() . '.' . $value->getConfigTarget();
     $data = \Drupal::config($config_name)->getRawData();
+    $translatedConfig = \Drupal::languageManager()->getLanguageConfigOverride('en', $config_name);
+    $data['translation_en'] = $translatedConfig->get();
     yield UtilityWebformYaml::encode($data);
 
   }
